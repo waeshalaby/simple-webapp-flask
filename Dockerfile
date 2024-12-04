@@ -1,5 +1,18 @@
-FROM ubuntu:20.04
-RUN apt-get update && apt-get install -y python3 python3-pip
-RUN pip3 install flask
-COPY app.py /opt/
-ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=8080
+# Use Red Hat Universal Base Image with Python 3.9
+FROM registry.access.redhat.com/ubi8/python-39
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application files to the container
+COPY . .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port the Flask app runs on
+EXPOSE 8080
+
+# Set the entrypoint to run the Flask app
+CMD ["python", "app.py"]
+
