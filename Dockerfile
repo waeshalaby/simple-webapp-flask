@@ -15,3 +15,4 @@ EXPOSE 8080
 
 # Set the entrypoint to run the Flask app
 CMD ["python", "app.py"]
+
